@@ -39,10 +39,10 @@ export default function Popup() {
      <div
       style={{
         padding: 16,
-        width: '50%',
+        width: 400,
+        minHeight: 300,   
         background: '#181818',
         color: '#f1f1f1',
-        minHeight: 300,
         borderRadius: 8,
         boxShadow: '0 2px 8px #0003'
       }}
