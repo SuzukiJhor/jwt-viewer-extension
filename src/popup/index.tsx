@@ -1,12 +1,13 @@
 import React from 'react';
+import JwtInput from '../components/JwtInput';
+import JwtOutput from '../components/JwtOutput';
+import SignatureVerifier from '../components/SignatureVerifier';
 
 function decodeJWT(token: string) {
   const parts = token.split('.');
-  if (parts.length !== 3) throw new Error('Invalid JWT');
-
+  if (parts.length !== 3) throw new Error('JWT inválido');
   const decode = (str: string) =>
     JSON.parse(atob(str.replace(/-/g, '+').replace(/_/g, '/')));
-
   return {
     header: decode(parts[0]),
     payload: decode(parts[1]),
@@ -16,28 +17,30 @@ function decodeJWT(token: string) {
 
 export default function Popup() {
   const [jwt, setJwt] = React.useState('');
-  const [output, setOutput] = React.useState('');
+  const [decoded, setDecoded] = React.useState<any>();
+  const [error, setError] = React.useState<string>();
 
-  const handleDecode = () => {
-    try {
-      const result = decodeJWT(jwt);
-      setOutput(JSON.stringify(result, null, 2));
-    } catch (err) {
-      setOutput((err as Error).message);
+  React.useEffect(() => {
+    if (!jwt) {
+      setDecoded(undefined);
+      setError(undefined);
+      return;
     }
-  };
+    try {
+      setDecoded(decodeJWT(jwt));
+      setError(undefined);
+    } catch (err) {
+      setDecoded(undefined);
+      setError((err as Error).message);
+    }
+  }, [jwt]);
 
   return (
     <div style={{ padding: 16, width: 350 }}>
       <h3>JWT Viewer</h3>
-      <textarea
-        style={{ width: '100%', height: 100 }}
-        placeholder="Paste JWT here..."
-        value={jwt}
-        onChange={(e) => setJwt(e.target.value)}
-      />
-      <button onClick={handleDecode}>Decode</button>
-      <pre>{output}</pre>
+      <JwtInput value={jwt} onChange={setJwt} />
+      <JwtOutput decoded={decoded} error={error} />
+      {decoded && <SignatureVerifier token={jwt} />}
     </div>
   );
 }
