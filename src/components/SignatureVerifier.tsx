@@ -19,16 +19,40 @@ export default function SignatureVerifier({ token }: Props) {
     }
   };
 
-  return (
-    <div style={{ marginTop: 16 }}>
+    return (
+    <div style={{ marginTop: 45 }}>
       <input
         type="text"
         placeholder="Chave secreta"
         value={secret}
         onChange={e => setSecret(e.target.value)}
-        style={{ width: '70%' }}
+        style={{
+          width: '70%',
+          background: '#23272f',
+          color: '#f1f1f1',
+          border: '1px solid #333',
+          borderRadius: 4,
+          padding: 8,
+          fontFamily: 'monospace',
+          fontSize: 14,
+          outline: 'none'
+        }}
       />
-      <button onClick={handleVerify} disabled={!secret || !token}>
+      <button
+        onClick={handleVerify}
+        disabled={!secret || !token}
+        style={{
+          marginTop: 8,
+          marginLeft: 8,
+          background: '#27ae60',
+          color: '#fff',
+          border: 'none',
+          borderRadius: 4,
+          padding: '8px 16px',
+          cursor: !secret || !token ? 'not-allowed' : 'pointer',
+          fontWeight: 'bold'
+        }}
+      >
         Verificar assinatura
       </button>
       {result && (

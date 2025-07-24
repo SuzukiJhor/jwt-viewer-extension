@@ -36,8 +36,18 @@ export default function Popup() {
   }, [jwt]);
 
   return (
-    <div style={{ padding: 16, width: 350 }}>
-      <h3>JWT Viewer</h3>
+     <div
+      style={{
+        padding: 16,
+        width: '50%',
+        background: '#181818',
+        color: '#f1f1f1',
+        minHeight: 300,
+        borderRadius: 8,
+        boxShadow: '0 2px 8px #0003'
+      }}
+    >
+      <h3 style={{ color: '#f1f1f1' }}>Decodificando segredos... ou só tokens mesmo 😅</h3>
       <JwtInput value={jwt} onChange={setJwt} />
       <JwtOutput decoded={decoded} error={error} />
       {decoded && <SignatureVerifier token={jwt} />}

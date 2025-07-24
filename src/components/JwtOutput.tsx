@@ -26,7 +26,7 @@ export default function JwtOutput({ decoded, error }: JwtOutputProps) {
   }
 
   return (
-    <div style={{ fontFamily: 'monospace', fontSize: 14 }}>
+    <div style={{ fontFamily: 'monospace', fontSize: 14, marginTop: 16 }}>
       <div>
         <strong>Header:</strong>
         <pre>{JSON.stringify(decoded.header, null, 2)}</pre>
@@ -34,7 +34,16 @@ export default function JwtOutput({ decoded, error }: JwtOutputProps) {
       <div>
         <strong>Payload:</strong>
         <pre>{JSON.stringify(decoded.payload, null, 2)}</pre>
-        <button onClick={handleCopy} style={{ marginBottom: 8 }}>Copiar Payload</button>
+        <button onClick={handleCopy} style={{
+            marginTop: 8,
+            marginBottom: 8,
+            background: '#27ae60',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 4,
+            padding: '6px 14px',
+            cursor: 'pointer'
+          }}>Copiar Payload</button>
         {'exp' in decoded.payload && (
           <ExpiryHighlight exp={decoded.payload.exp} />
         )}
