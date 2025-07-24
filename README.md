@@ -1,4 +1,4 @@
 # React + TypeScript + Vite
 
-Exten
-![JWT Viewer Logo](./logo.svg)
+
+![JWT Viewer Logo](./icons/logo.svg)
